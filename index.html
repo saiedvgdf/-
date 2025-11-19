@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البرعي | سعيد ماهر - مونتاج وريلز احترافي</title>
+    <!-- تحميل Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Changa:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* استخدام خط Changa الذي يدعم العربية بشكل أفضل */
+        body {
+            font-family: 'Changa', 'Inter', sans-serif;
+            background-color: #000000; 
+            color: #f3f4f6;
+        }
+        .section-title {
+            position: relative;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50%;
+            height: 4px;
+            background-color: #34d399; 
+            box-shadow: 0 0 10px #10b981; 
+            border-radius: 2px;
+        }
+        .bg-custom-dark {
+            background-color: #000000;
+        }
+        .bg-custom-light-dark {
+             background-color: #0a0a0a;
+        }
+        .text-glow-emerald {
+            color: #34d399;
+            text-shadow: 0 0 5px rgba(16, 185, 129, 0.7);
+        }
+        .shadow-glow {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+        .logo-container {
+            height: 35px;
+        }
+        /* لتطبيق الجلو الأخضر على الفيديو */
+        .video-glow-card {
+            position: relative;
+            padding: 1rem; /* مساحة للجلو */
+            background-color: transparent;
+        }
+        .video-glow-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(52, 211, 153, 0.2); /* إضاءة خفيفة */
+            border-radius: 12px;
+            z-index: 0;
+            filter: blur(10px);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .video-glow-card:hover::before {
+            opacity: 0.8;
+        }
+        .video-wrapper {
+            position: relative;
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            /* تحديد نسبة الطول إلى العرض للفيديوهات الطولية 9:16 */
+            aspect-ratio: 9/16; 
+            height: auto;
+            max-width: 300px; /* لضمان عدم تمددها بشكل مبالغ فيه على الشاشات الكبيرة */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* تغيير شكل الفيديو لعرض الصورة النائبة بوضوح */
+        .video-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .tool-icon {
+            width: 56px; 
+            height: 56px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+            margin-bottom: 0.25rem;
+        }
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100px; 
+        }
+        .tool-card:hover .tool-icon {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #34d399;
+        }
+    </style>
+</head>
+<body class="antialiased bg-custom-dark">
+
+    <!-- شريط التنقل (Header) -->
+    <header class="bg-custom-light-dark shadow-xl sticky top-0 z-20 border-b border-gray-900">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-100">
+                <a href="#" class="hover:text-emerald-400 transition duration-300 flex items-center flex-col md:flex-row">
+                    <!-- اللوجو - المسار المُصحح لـ logo.png.jpg -->
+                    <img src="./assets/logo.png.jpg" alt="شعار البرعي" class="logo-container object-contain" style="filter: drop-shadow(0 0 5px #34d399); height: 35px;">
+                    <span class="text-xs text-gray-400 mt-1 md:mt-0 md:mr-2">نقدم لك مونتاج يحكي قصة</span>
+                </a>
+            </h1>
+            <nav class="hidden md:flex space-x-6 space-x-reverse">
+                <a href="#about" class="text-gray-400 hover:text-glow-emerald font-medium transition duration-300">من أنا</a>
+                <a href="#portfolio" class="text-gray-400 hover:text-glow-emerald font-medium transition duration-300">المعرض</a>
+                <a href="#tools" class="text-gray-400 hover:text-glow-emerald font-medium transition duration-300">الأدوات</a>
+                <a href="#services" class="text-gray-400 hover:text-glow-emerald font-medium transition duration-300">الخدمات</a>
+                <a href="#contact" class="px-4 py-1 bg-emerald-500 text-gray-900 rounded-full hover:bg-emerald-600 font-semibold transition duration-300 shadow-glow">تواصل</a>
+            </nav>
+            <!-- زر القائمة للجوال -->
+            <button id="menu-button" class="md:hidden text-gray-400 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- قائمة الجوال (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-custom-light-dark border-t border-gray-900 absolute w-full z-10">
+            <a href="#about" class="block py-2 px-4 text-gray-400 hover:bg-gray-900 transition duration-300">من أنا</a>
+            <a href="#portfolio" class="block py-2 px-4 text-gray-400 hover:bg-gray-900 transition duration-300">المعرض</a>
+            <a href="#tools" class="block py-2 px-4 text-gray-400 hover:bg-gray-900 transition duration-300">الأدوات</a>
+            <a href="#services" class="block py-2 px-4 text-gray-400 hover:bg-gray-900 transition duration-300">الخدمات</a>
+            <a href="#contact" class="block py-2 px-4 bg-emerald-600 text-gray-900 hover:bg-emerald-700 font-semibold transition duration-300">تواصل معي</a>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- قسم من أنا (About Me) - معلومات سعيد ماهر -->
+        <section id="about" class="py-16 md:py-24 bg-custom-dark border-b border-gray-900">
+            <div class="container mx-auto px-4 text-center">
+                
+                <div class="bg-custom-light-dark p-6 rounded-xl shadow-glow border border-gray-900 inline-block w-full max-w-sm md:max-w-md">
+                    
+                    <div class="flex flex-col items-center">
+                         <!-- الصورة الشخصية - المسار المُصحح لـ saied.jpg.jpg -->
+                        <div class="w-28 h-28 bg-emerald-900 rounded-full flex items-center justify-center shadow-lg border-4 border-emerald-500 overflow-hidden mb-4">
+                            <img src="./assets/saied.jpg.jpg" alt="صورة شخصية لسعيد ماهر" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <h3 class="text-3xl font-bold text-glow-emerald">سعيد ماهر (البرعي)</h3>
+                        <p class="text-lg text-gray-300 mb-4 leading-relaxed mt-2">
+                            مونتير متخصص | نحول اللقطات إلى قصص مرئية جذابة.
+                        </p>
+                        
+                        <!-- إضافة أرقام التواصل تحت التعريف -->
+                        <div class="mt-4 flex flex-col items-center text-center">
+                            <p class="text-lg font-semibold text-white mb-2">للتواصل المباشر:</p>
+                            <div class="flex flex-wrap justify-center gap-4 text-sm font-medium">
+                                <a href="tel:01014363251" class="text-emerald-400 hover:text-emerald-300 hover:underline transition duration-300 flex items-center">
+                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.14c-.161.082-.258.107-.293.116l-.001.001A4.52 4.52 0 005.158 17.5l.001.001c.01.035.034.132.116.293l1.14 2.257a1 1 0 011.21.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-4.28c-1.127 0-2.164-.46-2.922-1.218A8.001 8.001 0 013 15.28V5z"></path></svg>
+                                    01014363251
+                                </a>
+                                <a href="tel:01050651787" class="text-emerald-400 hover:text-emerald-300 hover:underline transition duration-300 flex items-center">
+                                     <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.14c-.161.082-.258.107-.293.116l-.001.001A4.52 4.52 0 005.158 17.5l.001.001c.01.035.034.132.116.293l1.14 2.257a1 1 0 011.21.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-4.28c-1.127 0-2.164-.46-2.922-1.218A8.001 8.001 0 013 15.28V5z"></path></svg>
+                                    01050651787
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- زر مشاهدة الأعمال بعد الأرقام -->
+                        <a href="#portfolio" class="inline-block px-6 py-2 border border-emerald-500 text-emerald-500 font-semibold rounded-lg hover:bg-emerald-500 hover:text-gray-900 transition duration-300 text-sm mt-6">
+                            شاهد أحدث أعمالي
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم معرض الأعمال (Portfolio) - الفيديوهات مرتبة مع الجلو -->
+        <section id="portfolio" class="py-16 md:py-24 bg-custom-dark">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title mx-auto text-white">
+                    أحدث الأعمال - ريلز ومونتاج
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- بطاقة فيديو 1: 120.mp4 -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden video-glow-card transition duration-500 transform hover:-translate-y-1 hover:shadow-2xl border border-gray-800">
+                        <div class="video-wrapper">
+                            <!-- المسار المُصحح لـ video1.mp4.mp4 -->
+                            <video controls muted loop playsinline class="w-full h-full object-cover rounded-lg">
+                                <source src="./assets/video1.mp4.mp4" type="video/mp4">
+                                متصفحك لا يدعم عرض الفيديو.
+                            </video>
+                        </div>
+                        <div class="p-4 text-right">
+                            <h3 class="text-xl font-semibold text-white mb-1">ريلز | لغة التواصل للأم والجنين</h3>
+                            <p class="text-sm text-gray-400">تصميم حركي للنصوص وإيقاع سريع مناسب لمنصات الريلز.</p>
+                            <span class="inline-block mt-2 text-xs font-medium text-emerald-500 bg-emerald-900/50 px-3 py-1 rounded-full">تصميم النصوص</span>
+                        </div>
+                    </div>
+
+                    <!-- بطاقة فيديو 2: فيديو واتساب (طب الأسنان) -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden video-glow-card transition duration-500 transform hover:-translate-y-1 hover:shadow-2xl border border-gray-800">
+                        <div class="video-wrapper">
+                            <!-- المسار المُصحح لـ video2.mp4.mp4 -->
+                            <video controls muted loop playsinline class="w-full h-full object-cover rounded-lg">
+                                <source src="./assets/video2.mp4.mp4" type="video/mp4">
+                                متصفحك لا يدعم عرض الفيديو.
+                            </video>
+                        </div>
+                        <div class="p-4 text-right">
+                            <h3 class="text-xl font-semibold text-white mb-1">مقابلة | قبل وبعد الألوان</h3>
+                            <p class="text-sm text-gray-400">تطبيق التلوين السينمائي الاحترافي على محتوى المقابلات.</p>
+                            <span class="inline-block mt-2 text-xs font-medium text-purple-400 bg-purple-900/50 px-3 py-1 rounded-full">تلوين وألوان</span>
+                        </div>
+                    </div>
+
+                    <!-- بطاقة فيديو 3: 536af4e8 (مونتاج عقاري) -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden video-glow-card transition duration-500 transform hover:-translate-y-1 hover:shadow-2xl border border-gray-800">
+                        <div class="video-wrapper">
+                            <!-- المسار المُصحح لـ video3.mov.mov -->
+                            <video controls muted loop playsinline class="w-full h-full object-cover rounded-lg">
+                                <source src="./assets/video3.mov.mov" type="video/quicktime">
+                                متصفحك لا يدعم عرض الفيديو.
+                            </video>
+                        </div>
+                        <div class="p-4 text-right">
+                            <h3 class="text-xl font-semibold text-white mb-1">مونتاج عقاري | عرض الأبعاد</h3>
+                            <p class="text-sm text-gray-400">دمج احترافي لرسومات الـ 3D مع لقطات الدرون.</p>
+                            <span class="inline-block mt-2 text-xs font-medium text-indigo-400 bg-indigo-900/50 px-3 py-1 rounded-full">رسومات متحركة</span>
+                        </div>
+                    </div>
+
+                    <!-- بطاقة فيديو 4: PinDown.io (ريلز طعام) -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden video-glow-card transition duration-500 transform hover:-translate-y-1 hover:shadow-2xl border border-gray-800">
+                        <div class="video-wrapper">
+                            <!-- المسار المُصحح لـ video4.mp4.mp4 -->
+                            <video controls muted loop playsinline class="w-full h-full object-cover rounded-lg">
+                                <source src="./assets/video4.mp4.mp4" type="video/mp4">
+                                متصفحك لا يدعم عرض الفيديو.
+                            </video>
+                        </div>
+                        <div class="p-4 text-right">
+                            <h3 class="text-xl font-semibold text-white mb-1">ريلز | مونتاج إعلانات مطاعم</h3>
+                            <p class="text-sm text-gray-400">لقطات مقربة وسريعة مع إيقاع صوتي جذاب للمنتجات.</p>
+                            <span class="inline-block mt-2 text-xs font-medium text-red-400 bg-red-900/50 px-3 py-1 rounded-full">مونتاج إعلاني</span>
+                        </div>
+                    </div>
+
+                    <!-- بطاقة فيديو 5: 33.mp4 (مونتاج مطبخ/طعام) -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden video-glow-card transition duration-500 transform hover:-translate-y-1 hover:shadow-2xl border border-gray-800">
+                        <div class="video-wrapper">
+                            <!-- المسار المُصحح لـ video5.mp4.mp4 -->
+                            <video controls muted loop playsinline class="w-full h-full object-cover rounded-lg">
+                                <source src="./assets/video5.mp4.mp4" type="video/mp4">
+                                متصفحك لا يدعم عرض الفيديو.
+                            </video>
+                        </div>
+                        <div class="p-4 text-right">
+                            <h3 class="text-xl font-semibold text-white mb-1">خلف الكواليس | مطعم مأكولات بحرية</h3>
+                            <p class="text-sm text-gray-400">إظهار عملية العمل والتفاصيل الحرفية بجودة سينمائية.</p>
+                            <span class="inline-block mt-2 text-xs font-medium text-yellow-400 bg-yellow-900/50 px-3 py-1 rounded-full">جودة سينمائية</span>
+                        </div>
+                    </div>
+
+                    <!-- بطاقة فيديو 6: هي خطوه (1).mp4 (ريلز اجتماعي) -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden video-glow-card transition duration-500 transform hover:-translate-y-1 hover:shadow-2xl border border-gray-800">
+                        <div class="video-wrapper">
+                            <!-- المسار المُصحح لـ video6.mp4.mp4 -->
+                            <video controls muted loop playsinline class="w-full h-full object-cover rounded-lg">
+                                <source src="./assets/video6.mp4.mp4" type="video/mp4">
+                                متصفحك لا يدعم عرض الفيديو.
+                            </video>
+                        </div>
+                        <div class="p-4 text-right">
+                            <h3 class="text-xl font-semibold text-white mb-1">مونتاج | لقاء "هي خطوة"</h3>
+                            <p class="text-sm text-gray-400">مونتاج فعاليات ومؤتمرات بتركيز على اللحظات الرئيسية.</p>
+                            <span class="inline-block mt-2 text-xs font-medium text-pink-400 bg-pink-900/50 px-3 py-1 rounded-full">فعاليات ومؤتمرات</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+
+        <!-- قسم الأدوات المستخدمة (Tools Section) - أيقونات مستطيلة مع الأسماء - تم تنسيقها بشكل أفضل -->
+        <section id="tools" class="py-16 md:py-24 bg-custom-light-dark border-y border-gray-900">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title mx-auto text-white">
+                    أدوات المونتاج التي أستخدمها
+                </h2>
+                <div class="flex flex-wrap justify-center gap-6 md:gap-12">
+                    
+                    <!-- Premiere Pro -->
+                    <div class="tool-card text-center transition duration-300 transform hover:scale-105">
+                        <div class="tool-icon bg-[#9900FF] border-2 border-white">Ps</div> 
+                        <p class="mt-2 text-gray-300 font-semibold text-sm">Premiere Pro</p>
+                    </div>
+
+                    <!-- After Effects -->
+                    <div class="tool-card text-center transition duration-300 transform hover:scale-105">
+                        <div class="tool-icon bg-[#3333FF] border-2 border-white">Ae</div>
+                        <p class="mt-2 text-gray-300 font-semibold text-sm">After Effects</p>
+                    </div>
+
+                    <!-- DaVinci Resolve - تم التعديل ليصبح متناسقاً -->
+                    <div class="tool-card text-center transition duration-300 transform hover:scale-105">
+                        <div class="tool-icon bg-[#000000] border-2 border-emerald-400 text-emerald-400" style="padding: 0;">DR</div>
+                        <p class="mt-2 text-gray-300 font-semibold text-sm">DaVinci Resolve</p>
+                    </div>
+
+                    <!-- Canva -->
+                    <div class="tool-card text-center transition duration-300 transform hover:scale-105">
+                        <div class="tool-icon bg-[#00C4CC] border-2 border-white">Ca</div>
+                        <p class="mt-2 text-gray-300 font-semibold text-sm">Canva</p>
+                    </div>
+
+                    <!-- CapCut -->
+                    <div class="tool-card text-center transition duration-300 transform hover:scale-105">
+                        <div class="tool-icon bg-[#008080] border-2 border-white">Cc</div>
+                        <p class="mt-2 text-gray-300 font-semibold text-sm">CapCut</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- قسم الخدمات (Services) -->
+        <section id="services" class="py-16 md:py-24 bg-emerald-900/10 border-y border-gray-900">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title mx-auto text-white">
+                    الخدمات التي أقدمها
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-right">
+                    
+                    <!-- خدمة 1 -->
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-lg border-t-4 border-emerald-500 transition duration-300 hover:shadow-xl hover:shadow-emerald-700/50">
+                        <h3 class="text-2xl font-semibold text-white mb-3">مونتاج الفيديوهات الطويلة</h3>
+                        <p class="text-gray-400">فيديوهات يوتيوب، دورات تعليمية، محاضرات. القص الدقيق وإضافة المؤثرات البصرية والصوتية اللازمة.</p>
+                    </div>
+
+                    <!-- خدمة 2 -->
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-lg border-t-4 border-emerald-500 transition duration-300 hover:shadow-xl hover:shadow-emerald-700/50">
+                        <h3 class="text-2xl font-semibold text-white mb-3">مونتاج الريلز والفيديوهات القصيرة</h3>
+                        <p class="text-gray-400">ريلز إنستغرام، تيك توك، شورتس يوتيوب. تحرير سريع، عناوين جذابة، وموسيقى رائجة لضمان الانتشار.</p>
+                    </div>
+
+                    <!-- خدمة 3 -->
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-lg border-t-4 border-emerald-500 transition duration-300 hover:shadow-xl hover:shadow-emerald-700/50">
+                        <h3 class="text-2xl font-semibold text-white mb-3">التلوين وتصحيح الألوان (Color Grading)</h3>
+                        <p class="text-gray-400">تحسين جودة الصورة، ومواءمة الألوان، وإضافة لمسة سينمائية أو درامية للمحتوى الخاص بك.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- قسم التواصل (Contact) -->
+        <section id="contact" class="py-16 md:py-24 bg-custom-dark">
+            <div class="container mx-auto px-4 max-w-2xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title mx-auto text-white">
+                    تواصل معي
+                </h2>
+                <div class="bg-gray-900 p-8 rounded-xl shadow-2xl shadow-emerald-900/50 border border-gray-800">
+                    <p class="text-center text-lg text-gray-300 mb-6">
+                        للبدء في مشروعك التالي، املأ النموذج أو تواصل معي مباشرة عبر الأرقام المذكورة أعلاه.
+                    </p>
+                    
+                    <!-- نموذج اتصال بسيط -->
+                    <form action="#" method="POST" onsubmit="handleFormSubmit(event)">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-300 text-sm font-bold mb-2">الاسم الكامل</label>
+                            <input type="text" id="name" name="name" class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-3 px-4 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 transition duration-300" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-300 text-sm font-bold mb-2">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-3 px-4 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 transition duration-300" required value="sidmher7654@gmail.com">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-300 text-sm font-bold mb-2">رسالتك / تفاصيل المشروع</label>
+                            <textarea id="message" name="message" rows="4" class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-3 px-4 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 transition duration-300" required></textarea>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-gray-900 font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-[1.01] shadow-glow">
+                                إرسال الرسالة
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- رسالة التأكيد (مخفية افتراضياً) -->
+                    <div id="status-message" class="mt-4 p-3 bg-emerald-900/50 text-emerald-400 rounded-lg text-center hidden">
+                        <!-- الرسالة تظهر هنا بعد الإرسال -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- تذييل الصفحة (Footer) -->
+    <footer class="bg-custom-light-dark text-white py-6 border-t border-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 جميع الحقوق محفوظة. البرعي | سعيد ماهر.</p>
+            <div class="flex justify-center space-x-4 space-x-reverse mt-2">
+                <!-- أيقونات التواصل الاجتماعي Placeholder -->
+                <a href="#" class="text-gray-400 hover:text-emerald-500 transition duration-300">
+                    <!-- أيقونة انستغرام -->
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.8 2h8.4C17.7 2 18 2.3 18 2.6V21.4C18 21.7 17.7 22 17.4 22H7.8C7.5 22 7.2 21.7 7.2 21.4V2.6C7.2 2.3 7.5 2 7.8 2ZM12 7.5A4.5 4.5 0 1016.5 12 4.5 4.5 0 0012 7.5ZM12 15A3 3 0 1115 12 3 3 0 0112 15ZM16.6 6.5A1.1 1.1 0 1115.5 5.4 1.1 1.1 0 0116.6 6.5Z"/></svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-emerald-500 transition duration-300">
+                    <!-- أيقونة يوتيوب -->
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.5 7.6c-.1-1.3-.7-2.3-2-2.5-1.7-.3-10.5-.3-12.2 0-1.3.2-1.9 1.2-2 2.5-.1.8-.2 3.6-.2 5.4 0 1.8.1 4.6.2 5.4.1 1.3.7 2.3 2 2.5 1.7.3 10.5.3 12.2 0 1.3-.2 1.9-1.2 2-2.5.1-.8.2-3.6.2-5.4 0-1.8-.1-4.6-.2-5.4zM10 15.3V8.7l5.8 3.3-5.8 3.3z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // دالة التعامل مع إرسال النموذج. الآن تم تحديثها لاستخدام Formspree عبر Fetch API
+        async function handleFormSubmit(event) {
+            event.preventDefault(); // منع الإرسال الافتراضي
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            // ملاحظة مهمة: هذا هو الرابط الذي يجب عليك استبداله برابط Formspree الخاص بك
+            // يجب أن تحصل على هذا الرابط من موقع Formspree بعد إنشاء نموذج جديد.
+            const formspreeEndpoint = "https://formspree.io/f/you_will_replace_this_id"; 
+            
+            const messageDiv = document.getElementById('status-message');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            submitButton.disabled = true;
+            submitButton.textContent = "جاري الإرسال...";
+            messageDiv.classList.add('hidden'); // إخفاء الرسالة السابقة
+
+            try {
+                // استخدام Fetch API لإرسال البيانات إلى Formspree في الخلفية
+                const response = await fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json' // لتلقي رد JSON بدلاً من صفحة HTML
+                    },
+                    body: formData // إرسال بيانات النموذج
+                });
+
+                if (response.ok) {
+                    messageDiv.textContent = `شكراً لك يا ${data.name}! تم استلام رسالتك بنجاح. سيتم التواصل معك قريباً.`;
+                    messageDiv.classList.remove('hidden');
+                    // لضمان لون النجاح الأخضر
+                    messageDiv.classList.remove('bg-red-900/50', 'text-red-400');
+                    messageDiv.classList.add('bg-emerald-900/50', 'text-emerald-400');
+                    form.reset(); // تفريغ النموذج
+                } else {
+                    let errorText = "حدث خطأ غير متوقع. يرجى المحاولة لاحقاً.";
+                    try {
+                        const errorData = await response.json();
+                        if (errorData.errors) {
+                            errorText = errorData.errors.map(e => e.message).join(", ");
+                        }
+                    } catch (e) {
+                         // تجاوز أخطاء التحليل
+                    }
+                    messageDiv.textContent = `فشل الإرسال: ${errorText}`;
+                    messageDiv.classList.remove('hidden');
+                    // لضمان لون الخطأ الأحمر
+                    messageDiv.classList.remove('bg-emerald-900/50', 'text-emerald-400');
+                    messageDiv.classList.add('bg-red-900/50', 'text-red-400');
+                }
+
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                messageDiv.textContent = 'فشل الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت.';
+                messageDiv.classList.remove('hidden');
+                messageDiv.classList.remove('bg-emerald-900/50', 'text-emerald-400');
+                messageDiv.classList.add('bg-red-900/50', 'text-red-400');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = "إرسال الرسالة";
+                // إخفاء الرسالة بعد 10 ثوانٍ
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                }, 10000);
+            }
+        }
+
+        // منطق قائمة الجوال (Hamburger Menu)
+        document.getElementById('menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // إغلاق قائمة الجوال عند النقر على رابط
+        document.querySelectorAll('#mobile-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
